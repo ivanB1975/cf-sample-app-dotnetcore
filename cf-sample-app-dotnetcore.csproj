@@ -5,7 +5,7 @@
     <DebugType>portable</DebugType>
     <AssemblyName>cf-sample-app-dotnetcore-final-result</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>cf-sample-app-dotnetcore-final-result</PackageId>
+    <PackageId>cf-sample-app-dotnetcore</PackageId>
     <RuntimeFrameworkVersion>2.0.6</RuntimeFrameworkVersion>
   </PropertyGroup>
 
