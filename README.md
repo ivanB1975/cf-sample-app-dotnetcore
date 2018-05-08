@@ -12,7 +12,7 @@ A sample [ASP.NET Core](https://www.asp.net/core) application to deploy to Cloud
 ## Run in the cloud
 
 1. Install the [cf CLI](https://github.com/cloudfoundry/cli#downloads)
-1. Run `cf create-service mariadb usage dotnet-test`
+1. Run `cf create-service mariadbent usage dotnet-test`
 1. The Mariadb enterprise should be ready to use.
 1. Run `cf push`
 1. Visit the given URL
