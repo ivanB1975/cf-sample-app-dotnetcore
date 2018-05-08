@@ -1,12 +1,8 @@
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
 namespace CfSampleAppDotNetCore.Models
 {
     public class Kitten
     {
-        public ObjectId Id { get; set; }
-        [BsonElement("name")]
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

@@ -5,6 +5,6 @@ namespace CfSampleAppDotNetCore.Models
     public interface IKittenRepository
     {
         Kitten Create(Kitten kitten);
-        IEnumerable<Kitten> Find();
+        List<string> Find();
     }
 }

@@ -14,7 +14,7 @@ namespace CfSampleAppDotNetCore.Controllers
         public IKittenRepository Kittens { get; set; }
 
         [HttpGet]
-        public IEnumerable<Kitten> Find()
+        public List<string>  Find()
         {
             return Kittens.Find();
         }

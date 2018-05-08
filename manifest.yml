@@ -1,10 +1,10 @@
 ---
 applications:
-- name: my-dotnetcore-app
+- name: dotnetcore-mariadb
   memory: 64M
   buildpack: https://github.com/cloudfoundry-community/dotnet-core-buildpack.git
 
-  host: my-random-hostname
+  domain: scapp-corp.swisscom.com
 
   services:
-  - my-mongodb
+  - dotnet-test

@@ -1,4 +1,4 @@
-using MongoDB.Driver;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,8 +7,8 @@ namespace CfSampleAppDotNetCore.Models
 {
     public class KittenRepository : IKittenRepository
     {
-        private MongoClient _client;
-        private IMongoDatabase _db;
+        public string ConnectionString;
+        public MySqlConnection Connection;
 
         public KittenRepository()
         {
@@ -16,25 +16,85 @@ namespace CfSampleAppDotNetCore.Models
             {
                 var vcapServices = JsonConvert.DeserializeObject<VcapServices>(Environment.GetEnvironmentVariable("VCAP_SERVICES"));
 
-                _client = new MongoClient(vcapServices.mongodb[0].credentials.uri);
-                _db = _client.GetDatabase(vcapServices.mongodb[0].credentials.database);
+                ConnectionString = "server="+vcapServices.mariadbent[0].credentials.host
+                                                         +";user="+vcapServices.mariadbent[0].credentials.username
+                                                         +";database="+vcapServices.mariadbent[0].credentials.database
+                                                         +";port="+vcapServices.mariadbent[0].credentials.port
+                                                         +";password="+vcapServices.mariadbent[0].credentials.password;
+
             }
             else
             {
-                _client = new MongoClient("mongodb://localhost:27017");
-                _db = _client.GetDatabase("db");
+                Console.WriteLine("Using the local Mariadb");
+                ConnectionString = "server=localhost;user=root;database=mysql;port=32769;password=test";;
             }
         }
 
-        public IEnumerable<Kitten> Find()
+
+        public List<string> Find()
         {
-            return _db.GetCollection<Kitten>("Kittens").Find(_ => true).ToList();
+            List<String> columnData = new List<String>();
+            Connection = new MySqlConnection(ConnectionString);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                Connection.Open();
+
+                string sql = "SELECT Name FROM Kittens;";
+                MySqlCommand cmd = new MySqlCommand(sql, Connection);
+                MySql.Data.MySqlClient.MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader != null)
+                {
+                    
+                    while (reader.Read())
+                    {
+                      columnData.Add(reader.GetString(0));
+                     }
+                    Connection.Close();
+                    Console.WriteLine("Done.");
+                    return columnData;
+                   
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            Connection.Close();
+            Console.WriteLine("Done.");
+            return columnData;
+
+
         }
 
         public Kitten Create(Kitten kitten)
         {
-            _db.GetCollection<Kitten>("Kittens").InsertOne(kitten);
+            Connection = new MySqlConnection(ConnectionString);
+            try
+            {
+                Console.WriteLine("Connecting to MySQL...");
+                Console.WriteLine(ConnectionString);
+                Connection.Open();
+
+                string sql = "INSERT INTO Kittens (Name) VALUES ('"+kitten.Name+"');";
+                Console.WriteLine(sql);
+                MySqlCommand cmd = new MySqlCommand(sql, Connection);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            Connection.Close();
+            Console.WriteLine("Done.");
             return kitten;
         }
+         
+            
+            
+        }
     }
-}
+
