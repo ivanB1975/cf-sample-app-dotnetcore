@@ -9,13 +9,11 @@ namespace CfSampleAppDotNetCore.Models
     {
         public string ConnectionString;
         public MySqlConnection Connection;
-
         public KittenRepository()
         {
             if (Environment.GetEnvironmentVariable("VCAP_SERVICES") != null)
             {
                 var vcapServices = JsonConvert.DeserializeObject<VcapServices>(Environment.GetEnvironmentVariable("VCAP_SERVICES"));
-
                 ConnectionString = "server="+vcapServices.mariadbent[0].credentials.host
                                                          +";user="+vcapServices.mariadbent[0].credentials.username
                                                          +";database="+vcapServices.mariadbent[0].credentials.database
@@ -39,21 +37,18 @@ namespace CfSampleAppDotNetCore.Models
             {
                 Console.WriteLine("Connecting to MySQL...");
                 Connection.Open();
-
                 string sql = "SELECT Name FROM Kittens;";
                 MySqlCommand cmd = new MySqlCommand(sql, Connection);
                 MySql.Data.MySqlClient.MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader != null)
                 {
-                    
                     while (reader.Read())
                     {
                       columnData.Add(reader.GetString(0));
                      }
                     Connection.Close();
                     Console.WriteLine("Done.");
-                    return columnData;
-                   
+                    return columnData; 
 
                 }
             }
@@ -65,8 +60,6 @@ namespace CfSampleAppDotNetCore.Models
             Connection.Close();
             Console.WriteLine("Done.");
             return columnData;
-
-
         }
 
         public Kitten Create(Kitten kitten)
@@ -77,8 +70,7 @@ namespace CfSampleAppDotNetCore.Models
                 Console.WriteLine("Connecting to MySQL...");
                 Console.WriteLine(ConnectionString);
                 Connection.Open();
-
-                string sql = "INSERT INTO Kittens (Name) VALUES ('"+kitten.Name+"');";
+                string sql = "INSERT INTO Kittens (Name) VALUES ('" + kitten.Name + "');";
                 Console.WriteLine(sql);
                 MySqlCommand cmd = new MySqlCommand(sql, Connection);
                 cmd.ExecuteNonQuery();
@@ -92,9 +84,6 @@ namespace CfSampleAppDotNetCore.Models
             Console.WriteLine("Done.");
             return kitten;
         }
-         
-            
-            
-        }
     }
+}
 
