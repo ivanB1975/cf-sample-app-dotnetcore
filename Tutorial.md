@@ -1,10 +1,6 @@
-﻿---
-title: Bind a Service to Your App
-owner: Tobias Fuhrimann
-modified: Ivan Baldinotti
----
-
-# Bind a service to your app
+﻿# Bind a service to your app
+## owner: Tobias Fuhrimann
+## modified: Ivan Baldinotti
 
 The <a href="../service-offerings/index.html" target="_blank">service marketplace</a> has a large number of data stores, from Redis and MongoDB, to MariaDB (fork of MySQL) and RabbitMQ. You can run `cf marketplace` to get an overview. In this step you will add a MariaDB enterprise database to your app.
 
