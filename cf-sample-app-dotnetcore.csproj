@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <DebugType>portable</DebugType>
-    <AssemblyName>cf-sample-app-dotnetcore-final-result</AssemblyName>
+    <AssemblyName>cf-sample-app-dotnetcore</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>cf-sample-app-dotnetcore</PackageId>
     <RuntimeFrameworkVersion>2.0.6</RuntimeFrameworkVersion>

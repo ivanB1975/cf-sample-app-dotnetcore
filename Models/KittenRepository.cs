@@ -24,7 +24,7 @@ namespace CfSampleAppDotNetCore.Models
             else
             {
                 Console.WriteLine("Using the local Mariadb");
-                ConnectionString = "server=localhost;user=root;database=mysql;port=32769;password=test";;
+                ConnectionString = "server=localhost;user=root;database=mysql;port=3306;password=test";;
             }
         }
 
